@@ -1,0 +1,44 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*
+
+# Generated ML Models and artifacts (keep directory structure)
+models/*
+!models/.gitkeep
+
+# Data protection (keep data local, prevent accidental git tracking of clinical datasets)
+data/*
+!data/README.md
+!data/.gitkeep
+
+# Logs & temporary output
+*.log
+
+# Operating System specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

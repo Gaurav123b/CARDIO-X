@@ -1,0 +1,10 @@
+Metric,Value
+Total Rows,11627.0
+Total Columns,39.0
+Unique Participants (RANDID),4434.0
+Exact Duplicate Rows,0.0
+"Duplicate (RANDID, PERIOD) Pairs",0.0
+Total Cells,453453.0
+Total Missing Cells,20075.0
+Overall Missingness (%),4.43
+Memory Footprint (MB),3.46
