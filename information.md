@@ -22,6 +22,7 @@
 10. [Comprehensive File-by-File Technical Directory](#10-comprehensive-file-by-file-technical-directory)
 11. [Verification & Automated Test Suite (`tests/`)](#11-verification--automated-test-suite-tests)
 12. [Frequently Asked Questions & Prompt-Learning Guide](#12-frequently-asked-questions--prompt-learning-guide)
+13. [Command-to-Report Mapping & Generated Deliverables Catalog](#13-command-to-report-mapping--generated-deliverables-catalog)
 
 ---
 
@@ -485,3 +486,146 @@ Baseline models must therefore use Total Cholesterol (`TOTCHOL`, $98.8\%$ comple
 
 ### Q5: What is the risk of fitting an imputer or scaler on the entire dataset before splitting?
 **Answer:** Fitting transformations on the entire dataset constitutes **data leakage** (specifically distribution snooping). The imputer's median and the scaler's interquartile range would incorporate information from the test set, creating overly optimistic performance estimates that fail to generalize in actual clinical practice.
+
+---
+
+## 13. Command-to-Report Mapping & Generated Deliverables Catalog
+
+This master reference catalogs every runnable command in the CARDIO-X project, the exact scripts executed, the analytical reports and figures generated, the specific metrics/findings contained within them, and how to view each deliverable.
+
+### Master Command & Output Reference Table
+
+| Step # | Executable Command | Executed Script | Generated Reports & Artifacts | Primary Metrics & Insights Delivered |
+| :---: | :--- | :--- | :--- | :--- |
+| **1** | `python verify_env.py` | `verify_env.py` | CLI Terminal Output | Python version (`3.13`), Virtualenv status, Directory structure validation, Dependency import check. |
+| **2** | `python src/data_quality.py` | `src/data_quality.py` | 1. `reports/data_quality/data_quality_summary.md`<br>2. `reports/data_quality/missing_values.csv`<br>3. `reports/data_quality/descriptive_statistics.csv`<br>4. `reports/data_quality/dataset_overview.csv` | Total records (11,627), Column count (39), Missing rates per variable (`GLUCOSE`: 8.75%, `BPMEDS`: 13.37%), 0% `HDLC`/`LDLC` at baseline, Longitudinal exam counts. |
+| **3** | `python src/eda.py` | `src/eda.py` | 1. `reports/eda_summary.md`<br>2. `reports/figures/fig01` to `fig07` (7 PNG plots) | Biomarker distributions (skewness/kurtosis), $N=3,206$ paired longitudinal trajectories, correlation heatmaps, 10-year vs 24-year event rates. |
+| **4** | `python src/preprocessing.py` | `src/preprocessing.py` | 1. CLI Terminal Summary<br>2. `reports/preprocessing_design.md`<br>3. In-memory train/test arrays | Cohort attrition ($4,434 \to 4,215 \to 3,983$), Target counts ($369$ pos, $3,614$ neg), $80/20$ stratified split (Train: 3,186, Test: 797), Preprocessing transformer parameters. |
+| **5** | `pytest tests/` | `tests/test_*.py` (4 test files) | CLI Test Summary (25 passed) | 25 automated assertions: SHA-256 data immutability, zero data leakage, correct 10-year boundaries, mathematical rank collinearity separation. |
+| **6** | `jupyter notebook` | `notebooks/01_exploratory_data_analysis.ipynb` | Interactive HTML/Jupyter UI | Live interactive graphs, inline dataframe tables, dynamic code execution. |
+
+---
+
+### Detailed Breakdown of Each Command & Its Deliverables
+
+#### Command 1: Environment Verification
+```bash
+python verify_env.py
+```
+- **What it executes:** Non-destructive sanity check across the local runtime and directory hierarchy.
+- **Reports/Outputs Generated:**
+  - Standard output printed directly to the terminal.
+- **Specific information provided:**
+  - Confirmation of Python interpreter path (`sys.executable`).
+  - Confirmation that Python version is $\ge 3.10$ (currently running Python 3.13.9).
+  - Confirmation that the virtual environment (`.venv`) is active (`sys.prefix != sys.base_prefix`).
+  - Verification of the 6 core project directories: `data/`, `notebooks/`, `src/`, `models/`, `reports/`, `tests/`.
+  - Verification of foundational files: `.gitignore`, `requirements.txt`, `README.md`, `data/README.md`, `src/__init__.py`.
+  - Import verification for installed libraries: `pandas`, `numpy`, `matplotlib`, `seaborn`, `sklearn`, `pytest`.
+
+---
+
+#### Command 2: Data Quality Audit
+```bash
+python src/data_quality.py
+```
+- **What it executes:** Complete audit of raw data integrity, null value distribution, longitudinal completeness, and parametric/non-parametric summary statistics.
+- **Reports/Outputs Generated:**
+  1. `reports/data_quality/data_quality_summary.md` (Markdown format)
+  2. `reports/data_quality/missing_values.csv` (CSV format)
+  3. `reports/data_quality/descriptive_statistics.csv` (CSV format)
+  4. `reports/data_quality/dataset_overview.csv` (CSV format)
+- **Specific information provided in each report:**
+  - **`data_quality_summary.md`**: Executive summary explaining that the dataset contains 11,627 records across 4,434 participants. Identifies variables with missingness at baseline (`BPMEDS`: 593 missing, `GLUCOSE`: 388 missing, `TOTCHOL`: 52 missing, `CIGPDAY`: 32 missing, `BMI`: 19 missing). Highlights the clinical discovery that `HDLC` and `LDLC` have 0 measurements in Period 1 and triglycerides are absent.
+  - **`missing_values.csv`**: Table detailing exact missing counts and percentages for all 39 variables across the full dataset and broken down by examination period.
+  - **`descriptive_statistics.csv`**: Comprehensive statistical metrics for every numeric variable (count, mean, standard deviation, median, IQR, min, max, skewness).
+  - **`dataset_overview.csv`**: Metadata recording row count (11,627), column count (39), distinct data types (float64, int64), and memory footprint (3.46 MB).
+- **How to view the results:**
+  - Open in VS Code / IDE: Click on `reports/data_quality/data_quality_summary.md` and press `Cmd+Shift+V` (Mac) or `Ctrl+Shift+V` (Windows/Linux) for rich Markdown preview.
+  - In terminal: `cat reports/data_quality/data_quality_summary.md`
+  - In Excel / Numbers: Open any of the `.csv` files inside `reports/data_quality/`.
+
+---
+
+#### Command 3: Exploratory Data Analysis & Visualization
+```bash
+python src/eda.py
+```
+- **What it executes:** Statistical distribution analysis, clinical feature engineering calculation, longitudinal tracking across paired cohorts, and correlation matrix generation.
+- **Reports/Outputs Generated:**
+  1. `reports/eda_summary.md` (Markdown format)
+  2. 7 High-Resolution Visualization Charts in `reports/figures/` (PNG format):
+     - `fig01_distributions_key_biomarkers.png`
+     - `fig02_missingness_by_period.png`
+     - `fig03_correlation_matrix_baseline.png`
+     - `fig04_correlation_lipid_panel_period3.png`
+     - `fig05_longitudinal_trajectories.png`
+     - `fig06_engineered_clinical_features.png`
+     - `fig07_outcome_prevalence_comparison.png`
+- **Specific information provided in each report:**
+  - **`eda_summary.md`**: Detailed clinical interpretation of biomarker distributions, correlation findings (e.g. $r = 0.70$ between `SYSBP` and `DIABP`), trajectory trends over 12 years for the $N=3,206$ complete cohort, and outcome comparisons between 10-year landmark events ($9.26\%$) and lifetime events ($26.49\%$).
+  - **`fig01_distributions_key_biomarkers.png`**: Multi-panel histograms with KDE overlays for `TOTCHOL`, `SYSBP`, `DIABP`, `BMI`, `GLUCOSE`, and `AGE`. Demonstrates skewness in glucose (skew = 6.21) and cholesterol (skew = 1.05).
+  - **`fig02_missingness_by_period.png`**: Heatmap illustrating the protocol introduction of HDL/LDL at Exam 3 and baseline completeness of blood pressure and demographics.
+  - **`fig03_correlation_matrix_baseline.png`**: Full baseline correlation matrix highlighting collinearity between blood pressure measures.
+  - **`fig04_correlation_lipid_panel_period3.png`**: Correlation matrix showing strong agreement ($r = 0.91$) between Total Cholesterol and LDL at Exam 3.
+  - **`fig05_longitudinal_trajectories.png`**: Line plots showing progression of blood pressure and total cholesterol across Exam 1, Exam 2, and Exam 3 for the identical 3,206 individuals.
+  - **`fig06_engineered_clinical_features.png`**: Boxplots and distributions of derived Pulse Pressure ($\text{PP}$) and Mean Arterial Pressure ($\text{MAP}$) stratified by CVD outcome.
+  - **`fig07_outcome_prevalence_comparison.png`**: Bar charts contrasting 10-year incidence versus lifetime cumulative incidence for CVD, Coronary Heart Disease (ANYCHD), and All-Cause Death.
+- **How to view the results:**
+  - On macOS terminal: `open reports/figures/` (opens all PNG images in macOS Preview).
+  - In VS Code: Click on any `.png` file in the file explorer to view the chart directly.
+
+---
+
+#### Command 4: Preprocessing Pipeline & Stratified Splitting
+```bash
+python src/preprocessing.py
+```
+- **What it executes:** Re-creates the primary-prevention cohort, excludes pre-existing CVD and indeterminate cases, applies the 10-year day threshold ($3,652.5\text{ days}$), partitions into an 80/20 stratified split, and fits Scikit-Learn `ColumnTransformer` pipelines strictly within the training fold.
+- **Reports/Outputs Generated:**
+  1. CLI Terminal Output logging cohort counts and split shapes.
+  2. `reports/preprocessing_design.md` (Markdown format).
+  3. Clean in-memory training ($X_{\text{train}}, y_{\text{train}}$) and test ($X_{\text{test}}, y_{\text{test}}$) arrays ready for downstream model fitting.
+- **Specific information provided in each report:**
+  - **Terminal Output:**
+    - Baseline participants: **4,434**
+    - Excluded prior CVD: **219** (primary-prevention cohort: **4,215**)
+    - Excluded indeterminate: **232** (evaluable cohort: **3,983**)
+    - Target balance: **369 Positive ($9.26\%$)** vs. **3,614 Negative ($90.74\%$)**
+    - Train split shape: $3,186 \text{ rows} \times 14 \text{ features}$ ($295$ positive)
+    - Held-out test split shape: $797 \text{ rows} \times 14 \text{ features}$ ($74$ positive)
+    - Collinearity verification: Matrix rank $= 2$ for all 4 BP metrics, confirming why `standard_bp` and `hemodynamic` are isolated.
+  - **`reports/preprocessing_design.md`**: Full documentation of inclusion/exclusion criteria, exact mathematical formulas, imputation strategies (median for numeric, mode for binary), outlier scaling (RobustScaler), and feature leakage prevention rules.
+- **How to view the results:**
+  - In terminal: `python src/preprocessing.py`
+  - In VS Code: Open `reports/preprocessing_design.md` and view Markdown preview.
+
+---
+
+#### Command 5: Automated Test Suite (25 Tests)
+```bash
+pytest tests/
+```
+- **What it executes:** Comprehensive regression test suite executing 25 unit tests across 4 test modules.
+- **Reports/Outputs Generated:**
+  - Pytest test execution report printed to terminal stdout.
+- **Specific assertions verified:**
+  - **`test_environment.py` (4 tests):** Asserts Python version $\ge 3.10$, validates all directories, confirms foundational files exist, confirms `src` package imports with version attribute.
+  - **`test_data_quality.py` (6 tests):** Validates raw dataset byte size (`1,407,548 bytes`) and SHA-256 hash (`e073ce4c60d351f2015c500b5bdf89c3a99ab3dfd0ba525e31a743742d649131`), confirms dimensions ($11,627 \times 39$), validates missingness rates, checks longitudinal integrity, and asserts dataset immutability.
+  - **`test_eda.py` (6 tests):** Asserts skewness and IQR calculations, validates engineered feature formulas (`CHOL_HDL_RATIO`, `PULSE_PRESSURE`, `MAP`), verifies paired longitudinal cohort ($N=3,206$), asserts all 7 figure files exist and are non-empty, and verifies source data immutability.
+  - **`test_preprocessing.py` (9 tests):** Asserts baseline records ($N=4,434$), asserts prior-disease exclusion count ($N=219$), asserts indeterminate exclusion count ($N=232$), asserts target distribution ($369$ pos, $3,614$ neg), asserts $>10$-year events are coded as 0, verifies zero feature leakage in predictors, confirms blood pressure rank separation, asserts 80/20 stratified split isolation (transformers fit only on train fold), and asserts source data immutability.
+- **How to view the results:**
+  - In terminal: Run `pytest tests/ -v` for verbose output displaying every single passing test name.
+
+---
+
+#### Command 6: Interactive Research Notebook
+```bash
+jupyter notebook notebooks/01_exploratory_data_analysis.ipynb
+```
+- **What it executes:** Launches the local Jupyter Notebook web server to interactively explore the data, inspect Pandas dataframes, and render interactive Seaborn/Matplotlib charts.
+- **Reports/Outputs Generated:**
+  - Interactive browser UI displaying live execution cells, formatted tables, and inline plots.
+- **How to view the results:**
+  - Run the command, open the generated local URL (e.g., `http://localhost:8888/?token=...`) in any web browser, and execute cells sequentially.
+
