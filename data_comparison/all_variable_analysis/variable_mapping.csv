@@ -1,0 +1,109 @@
+framingham_variable,nhanes_variable,comparability_status,definition_and_unit_compatibility,transformation,exclusion_reason
+AGE,age_years,A: Directly comparable,Identical chronological age in integer years,None (Direct alignment),None
+TOTCHOL,total_cholesterol_mg_dl,A: Directly comparable,Serum total cholesterol in mg/dL,None (Direct alignment),None
+SYSBP,avg_systolic_bp_mmhg,A: Directly comparable,Systolic blood pressure in mmHg (Protocol differs: manual auscultation vs automated oscillometric),None (Direct alignment),None
+DIABP,avg_diastolic_bp_mmhg,A: Directly comparable,Diastolic blood pressure in mmHg (Protocol differs: manual auscultation vs automated oscillometric),None (Direct alignment),None
+HEARTRTE,avg_pulse_bpm,A: Directly comparable,Resting ventricular pulse rate in beats per minute,None (Direct alignment),None
+BMI,bmi_kg_m2,A: Directly comparable,Body mass index in kg/m^2 (weight/height^2),None (Direct alignment),None
+BPMEDS,bp_medication,A: Directly comparable,"Self-reported use of prescribed antihypertensive medication (0=No, 1=Yes)",None (Direct alignment),None
+PULSE_PRESSURE,pulse_pressure_mmhg,B: Comparable after documented transformation,Pulse pressure in mmHg,Derived in Framingham as SYSBP - DIABP; verified against NHANES recorded PP,None
+MAP,MAP,B: Comparable after documented transformation,Mean arterial pressure in mmHg,Derived in both cohorts as DBP + (SYSBP - DBP)/3,None
+SEX,sex,B: Comparable after documented transformation,Biological sex,"Recode Framingham (1=Male, 2=Female) to 1=Male, 0=Female; recode NHANES ('male', 'female') to 1=Male, 0=Female",None
+CURSMOKE,smoking_status,B: Comparable after documented transformation,"Current cigarette smoker indicator (0=No, 1=Yes)","Recode NHANES smoking_status ('current' -> 1, 'former'/'never' -> 0) to match Framingham CURSMOKE",None
+educ,education_level,B: Comparable after documented transformation,Educational attainment,"Harmonize into 4 standard tiers: 1=<High School, 2=High School/GED, 3=Some College/AA, 4=College Graduate",None
+DIABETES,diabetes_diagnosed,B: Comparable after documented transformation,Prevalent doctor-diagnosed diabetes history,Map Framingham DIABETES (history of diagnosis) to NHANES diabetes_diagnosed (self-reported physician diagnosis),None
+PREVHYP,hypertension_diagnosed,C: Conceptually related but not directly comparable,Hypertension history / status,None,FHS criteria (SYSBP>=140 or DIABP>=90 or BPMEDS) differs from NHANES self-report and 2017 ACC/AHA guidelines (130/80)
+PREVCHD,coronary_heart_disease,C: Conceptually related but not directly comparable,Coronary heart disease history,None,FHS baseline clinical adjudication vs NHANES lifetime self-reported questionnaire history
+PREVAP,angina,C: Conceptually related but not directly comparable,Angina pectoris history,None,FHS baseline physician exam vs NHANES self-reported questionnaire history
+PREVMI,heart_attack,C: Conceptually related but not directly comparable,Myocardial infarction history,None,FHS adjudicated hospital/ECG verified MI vs NHANES self-reported heart attack
+PREVSTRK,stroke,C: Conceptually related but not directly comparable,Cerebrovascular accident history,None,FHS adjudicated neurological stroke exam vs NHANES self-reported stroke history
+GLUCOSE,glycemic_status,C: Conceptually related but not directly comparable,Glycemic control / blood glucose,None,FHS has continuous casual serum glucose (mg/dL); NHANES provides 3-tier categorical glycemic status (0/1/2) without continuous casual glucose
+CIGPDAY,smoked_100_cigarettes,C: Conceptually related but not directly comparable,Tobacco exposure burden,None,FHS measures continuous daily cigarettes; NHANES measures lifetime threshold (>100 cigarettes) and categorical status
+HDLC,hdl_cholesterol_mg_dl,C: Conceptually related but not directly comparable,High-density lipoprotein cholesterol in mg/dL,None,100% missing in baseline Framingham cohort (PERIOD==1); only available in Period 3 (1968-1971)
+LDLC,ldl_cholesterol_mg_dl,C: Conceptually related but not directly comparable,Low-density lipoprotein cholesterol in mg/dL,None,100% missing in baseline Framingham cohort (PERIOD==1); only available in Period 3 (1968-1971)
+RANDID,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Cohort tracking identifier or examination wave counter; non-clinical study design variable
+TIME,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Cohort tracking identifier or examination wave counter; non-clinical study design variable
+PERIOD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Cohort tracking identifier or examination wave counter; non-clinical study design variable
+DEATH,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+ANGINA,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+HOSPMI,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+MI_FCHD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+ANYCHD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+STROKE,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+CVD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+HYPERTEN,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMEAP,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMEMI,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMEMIFC,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMECHD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMESTRK,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMECVD,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMEDTH,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+TIMEHYP,N/A (No counterpart),D: Not comparable,Unique to longitudinal cohort study design,None,Prospective longitudinal follow-up event or duration counter; absent in cross-sectional NHANES; strict target leakage
+N/A (No counterpart),participant_id,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_cycle,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_weight_interview_2yr,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_weight_mec_2yr,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_weight_fasting_2yr,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_strata,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),survey_psu,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES complex multi-stage survey design or weighting variable; reserved for survey-weighted estimation
+N/A (No counterpart),age_group,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),race_ethnicity,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),education_code,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),marital_status,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),born_in_us,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),family_income_poverty_ratio,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),income_poverty_category,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),pregnant,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),work_status,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),bmi_category,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),weight_kg,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),height_cm,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),waist_circumference_cm,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),hip_circumference_cm,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),arm_circumference_cm,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),waist_to_height_ratio,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),waist_to_hip_ratio,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),weight_change_1yr_kg,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),tried_to_lose_weight_past_year,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),hypertension_measured,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),triglycerides_mg_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern lipid fractions or lipid-lowering pharmacotherapy absent in 1948-1952 Framingham
+N/A (No counterpart),non_hdl_cholesterol_mg_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern lipid fractions or lipid-lowering pharmacotherapy absent in 1948-1952 Framingham
+N/A (No counterpart),triglyceride_hdl_ratio,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Detailed body composition anthropometry not measured in baseline Framingham
+N/A (No counterpart),high_cholesterol_diagnosed,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern lipid fractions or lipid-lowering pharmacotherapy absent in 1948-1952 Framingham
+N/A (No counterpart),cholesterol_medication,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern lipid fractions or lipid-lowering pharmacotherapy absent in 1948-1952 Framingham
+N/A (No counterpart),alt_u_l,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),ast_u_l,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),ggt_u_l,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),uric_acid_mg_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),creatinine_mg_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),albumin_g_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),egfr_ml_min_1_73m2,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),white_blood_cell_count_1000_ul,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),hemoglobin_g_dl,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),platelet_count_1000_ul,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Invasive routine clinical chemistry / CBC panel absent in baseline Framingham
+N/A (No counterpart),moderate_ltp_minutes_week,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),vigorous_ltp_minutes_week,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),total_ltp_met_minutes_week,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),meets_activity_guidelines,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),sedentary_minutes_day,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),alcohol_drinks_per_week,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Alcohol consumption questionnaire metric absent in baseline Framingham
+N/A (No counterpart),heavy_alcohol_use,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Alcohol consumption questionnaire metric absent in baseline Framingham
+N/A (No counterpart),sleep_hours_weekday,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),sleep_hours_weekend,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Standardized physical activity or sleep questionnaire metric absent in baseline Framingham
+N/A (No counterpart),phq9_score,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern psychiatric questionnaire instrument (PHQ-9) developed decades after Framingham baseline
+N/A (No counterpart),depression_screen_positive,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern psychiatric questionnaire instrument (PHQ-9) developed decades after Framingham baseline
+N/A (No counterpart),general_health,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),general_health_label,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),has_health_insurance,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),routine_healthcare_place,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,"Contemporary socioeconomic, demographic, or healthcare access indicator specific to modern NHANES"
+N/A (No counterpart),mental_health_care_past_year,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Modern psychiatric questionnaire instrument (PHQ-9) developed decades after Framingham baseline
+N/A (No counterpart),asthma,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),congestive_heart_failure,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),liver_condition,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),thyroid_problem,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),cancer_any,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),weak_or_failing_kidneys,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),heart_disease_or_attack,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,Specific comorbidity surveyed in NHANES without counterpart in baseline Framingham
+N/A (No counterpart),diabetes,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham
+N/A (No counterpart),diabetes_undiagnosed,D: Not comparable,Unique to contemporary NHANES cross-sectional survey,None,NHANES variable without equivalent in Framingham

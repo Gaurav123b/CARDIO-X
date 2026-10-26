@@ -1,0 +1,50 @@
+{
+  "dataset_dimensions": {
+    "framingham_raw": {
+      "rows": 11627,
+      "columns": 41
+    },
+    "framingham_baseline": {
+      "rows": 4434,
+      "columns": 41
+    },
+    "nhanes_2021_2023": {
+      "rows": 6001,
+      "columns": 89
+    }
+  },
+  "variable_mapping_summary": {
+    "total_mapped_entries": 108,
+    "category_A_directly_comparable": 7,
+    "category_B_comparable_after_transformation": 6,
+    "category_C_conceptually_related": 9,
+    "category_D_not_comparable": 86
+  },
+  "shared_continuous_variables": [
+    "Age",
+    "Total_Cholesterol",
+    "Systolic_BP",
+    "Diastolic_BP",
+    "Pulse_Pressure",
+    "Mean_Arterial_Pressure",
+    "Heart_Rate",
+    "BMI"
+  ],
+  "total_correlation_pairs_tested": 28,
+  "statistically_significant_pairs_bonferroni": 22,
+  "statistically_significant_pairs_fdr": 24,
+  "figures_generated": [
+    "01_variable_coverage.png",
+    "02_framingham_full_numeric_correlation.png",
+    "03_nhanes_full_numeric_correlation.png",
+    "04_shared_variable_correlation_comparison.png",
+    "05_shared_variable_correlation_difference.png",
+    "06_continuous_variable_distributions.png",
+    "07_continuous_variable_boxplots.png",
+    "08_binary_variable_prevalence.png",
+    "09_categorical_variable_comparison.png",
+    "10_missingness_comparison.png",
+    "11_correlation_shift_ranking.png",
+    "12_variable_relationship_panels.png"
+  ]
+}
